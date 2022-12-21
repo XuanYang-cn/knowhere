@@ -31,6 +31,7 @@
 
 #include "IndexIVF_NM.h"
 #include "common/Exception.h"
+#include "common/Indicator.h"
 #include "common/Log.h"
 #include "common/Utils.h"
 #include "faiss/invlists/InvertedLists.h"
@@ -378,6 +379,8 @@ IVF_NM::QueryImpl(int64_t n,
     auto ivf_stats = std::dynamic_pointer_cast<IVFStatistics>(stats);
     ivf_index->search_without_codes_thread_safe(n, xq, k, distances, labels, params->nprobe, parallel_mode, max_codes,
                                                 bitset);
+    IndicatorCollector::GetInstance().Get(IndicatorType::DISK_IO_NUM).Add(7);
+    LOG_KNOWHERE_DEBUG_ << "CYD - DISK_IO_NUM " << IndicatorCollector::GetInstance().Get(IndicatorType::DISK_IO_NUM).Get();
 #if 0
     stdclock::time_point after = stdclock::now();
     double search_cost = (std::chrono::duration<double, std::micro>(after - before)).count();
