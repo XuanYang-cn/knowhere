@@ -18,6 +18,7 @@
 #include "knowhere/index/vector_index/ConfAdapterMgr.h"
 #include "knowhere/index/vector_index/IndexIDMAP.h"
 #include "knowhere/index/vector_index/adapter/VectorAdapter.h"
+#include "knowhere/metrics/SystemInfoCollector.h"
 #ifdef KNOWHERE_GPU_VERSION
 #include <faiss/gpu/GpuCloner.h>
 #include "knowhere/index/vector_index/gpu/IndexGPUIDMAP.h"
@@ -269,6 +270,15 @@ TEST_P(IDMAPTest, idmap_range_search_ip) {
         }
     }
     knowhere::KnowhereConfig::SetBlasThreshold(old_blas_threshold);
+}
+
+TEST_P(IDMAPTest, idmap_prometheus) {
+    knowhere::SystemInfoCollector::GetInstance().Start();
+    sleep(5);
+    auto str = knowhere::Prometheus::GetInstance().GetMetrics();
+    std::cout << str << std::endl;
+    sleep(1);
+    knowhere::SystemInfoCollector::GetInstance().Stop();
 }
 
 #ifdef KNOWHERE_GPU_VERSION

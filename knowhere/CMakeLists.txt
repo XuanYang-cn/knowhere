@@ -15,6 +15,7 @@ include_directories(${KNOWHERE_SOURCE_DIR}/knowhere)
 include_directories(${KNOWHERE_SOURCE_DIR}/thirdparty)
 include_directories(${KNOWHERE_SOURCE_DIR}/thirdparty/faiss)
 include_directories(${KNOWHERE_SOURCE_DIR}/thirdparty/DiskANN)
+include_directories(${KNOWHERE_SOURCE_DIR}/thirdparty/prometheus)
 include_directories(${KNOWHERE_SOURCE_DIR}/knowhere/utils)
 
 if ( KNOWHERE_WITH_DISKANN )
@@ -33,6 +34,11 @@ set(external_srcs
 set(config_srcs
         archive/KnowhereConfig.cpp
         archive/BruteForce.cpp
+        )
+
+set(metrics_srcs
+        metrics/SystemInfo.cpp
+        metrics/SystemInfoCollector.cpp
         )
 
 set(vector_index_srcs
@@ -79,6 +85,9 @@ set(depend_libs
         pthread
         knowhere_utils
         ${LAPACK_LIBRARIES}
+        prometheus-cpp::core
+        prometheus-cpp::pull
+        prometheus-cpp::push
         )
 
 if (KNOWHERE_WITH_DISKANN)
@@ -119,6 +128,7 @@ if (NOT TARGET knowhere)
             knowhere SHARED
             ${external_srcs}
             ${config_srcs}
+            ${metrics_srcs}
             ${vector_index_srcs}
             ${vector_offset_index_srcs}
     )

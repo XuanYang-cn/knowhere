@@ -45,6 +45,8 @@ if ( LINUX AND ENABLE_PROFILING )
     add_subdirectory( profiler )
 endif()
 
+add_subdirectory( prometheus )
+
 # ****************************** Thirdparty Faiss ***************************************
 set( FAISS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/faiss )
 
