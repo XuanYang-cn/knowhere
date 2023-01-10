@@ -43,8 +43,7 @@ if ( NOT prometheus_POPULATED )
     # prometheus-cpp::pull
     # prometheus-cpp::push
     add_subdirectory( ${prometheus_SOURCE_DIR}
-                      ${prometheus_BINARY_DIR}
-                      EXCLUDE_FROM_ALL )
+                      ${prometheus_BINARY_DIR} )
 endif()
 
 # get prometheus COMPILE_OPTIONS
