@@ -143,6 +143,9 @@ set (KNOWHERE_INCLUDE_DIRS
         ${FAISS_INCLUDE_DIR}
         ${OpenBLAS_INCLUDE_DIR}
         ${LAPACK_INCLUDE_DIR}
+        ${PROMETHEUS_CORE_INCLUDE_DIR}
+        ${PROMETHEUS_PULL_INCLUDE_DIR}
+        ${PROMETHEUS_PUSH_INCLUDE_DIR}
         )
 
 target_include_directories(knowhere PUBLIC ${KNOWHERE_INCLUDE_DIRS})
