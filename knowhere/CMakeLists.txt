@@ -124,8 +124,7 @@ if (KNOWHERE_GPU_VERSION)
 endif ()
 
 if (NOT TARGET knowhere)
-    add_library(
-            knowhere SHARED
+    add_library( knowhere SHARED
             ${external_srcs}
             ${config_srcs}
             ${metrics_srcs}
@@ -135,7 +134,8 @@ if (NOT TARGET knowhere)
     target_include_directories(knowhere PUBLIC ${KNOWHERE_SOURCE_DIR}/knowere)
 endif ()
 
-target_link_libraries(knowhere ${depend_libs})
+target_link_libraries(knowhere PUBLIC ${depend_libs})
+target_link_directories(knowhere PUBLIC ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
 set (KNOWHERE_INCLUDE_DIRS
         ${KNOWHERE_SOURCE_DIR}
