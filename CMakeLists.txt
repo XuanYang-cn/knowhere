@@ -17,6 +17,11 @@ project(knowhere CXX C)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
+
+add_definitions(-DNOT_COMPILE_FOR_SWIG)
+get_property( var DIRECTORY "${NOT_COMPILE_FOR_SWIG}" PROPERTY COMPILE_DEFINITIONS )
+message( STATUS "knowhere src compile options: ${var}" )
+
 include(GNUInstallDirs)
 include(ExternalProject)
 include(cmake/utils/utils.cmake)
@@ -58,10 +63,6 @@ if(WITH_RAFT)
     add_compile_options($<$<COMPILE_LANGUAGE:CUDA>:--threads=4>)
   endif()
 endif()
-
-add_definitions(-DNOT_COMPILE_FOR_SWIG)
-get_property( var DIRECTORY "${NOT_COMPILE_FOR_SWIG}" PROPERTY COMPILE_DEFINITIONS )
-message( STATUS "knowhere src compile options: ${var}" )
 
 include(cmake/utils/compile_flags.cmake)
 include(cmake/utils/platform_check.cmake)
