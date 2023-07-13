@@ -190,16 +190,16 @@ class Index {
         RETURN_IF_ERROR(LoadConfig(cfg.get(), json, knowhere::RANGE_SEARCH, "RangeSearch"));
         RETURN_IF_ERROR(cfg->CheckAndAdjustForRangeSearch());
 
-#ifdef NOT_COMPILE_FOR_SWIG
+// #ifdef NOT_COMPILE_FOR_SWIG
         TimeRecorder rc("Range Search");
         auto res = this->node->RangeSearch(dataset, *cfg, bitset);
         auto span = rc.ElapseFromBegin("done");
         span *= 0.001;  // convert to ms
         kw_range_search_latency.Observe(span);
         std::cout << "span: " << span << std::endl;
-#else
+// #else
         auto res = this->node->RangeSearch(dataset, *cfg, bitset);
-#endif
+// #endif
         return res;
     }
 
