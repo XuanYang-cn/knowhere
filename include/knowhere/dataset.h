@@ -289,6 +289,7 @@ GenResultDataSet(const std::string& json_info, const std::string& json_id_set) {
     ret_ds->SetIsOwner(true);
     return ret_ds;
 }
+
 #endif
 
 }  // namespace knowhere

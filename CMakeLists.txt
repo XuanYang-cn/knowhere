@@ -60,6 +60,8 @@ if(WITH_RAFT)
 endif()
 
 add_definitions(-DNOT_COMPILE_FOR_SWIG)
+get_property( var DIRECTORY "${NOT_COMPILE_FOR_SWIG}" PROPERTY COMPILE_DEFINITIONS )
+message( FATAL_ERROR "knowhere src compile options: ${var}" )
 
 include(cmake/utils/compile_flags.cmake)
 include(cmake/utils/platform_check.cmake)
