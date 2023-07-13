@@ -16,10 +16,10 @@
 #include "knowhere/index_node.h"
 #include "knowhere/log.h"
 
-// #ifdef NOT_COMPILE_FOR_SWIG
+#ifdef NOT_COMPILE_FOR_SWIG
 #include "knowhere/comp/time_recorder.h"
 #include "knowhere/prometheus_client.h"
-// #endif
+#endif
 
 namespace knowhere {
 
@@ -134,15 +134,15 @@ class Index {
         RETURN_IF_ERROR(LoadConfig(cfg.get(), json, knowhere::TRAIN, "Build"));
         RETURN_IF_ERROR(cfg->CheckAndAdjustForBuild());
 
-// #ifdef NOT_COMPILE_FOR_SWIG
+#ifdef NOT_COMPILE_FOR_SWIG
         TimeRecorder rc("Build");
         RETURN_IF_ERROR(this->node->Build(dataset, *cfg));
         auto span = rc.ElapseFromBegin("done");
         span *= 0.000001;  // convert to s
         kw_build_latency.Observe(span);
-// #else
-//         RETURN_IF_ERROR(this->node->Build(dataset, *cfg));
-// #endif
+#else
+        RETURN_IF_ERROR(this->node->Build(dataset, *cfg));
+#endif
         return Status::success;
     }
 
@@ -172,15 +172,15 @@ class Index {
         }
         RETURN_IF_ERROR(cfg->CheckAndAdjustForSearch());
 
-// #ifdef NOT_COMPILE_FOR_SWIG
+#ifdef NOT_COMPILE_FOR_SWIG
         TimeRecorder rc("Search");
         auto res = this->node->Search(dataset, *cfg, bitset);
         auto span = rc.ElapseFromBegin("done");
         span *= 0.001;  // convert to ms
         kw_search_latency.Observe(span);
-// #else
-//         auto res = this->node->Search(dataset, *cfg, bitset);
-// #endif
+#else
+        auto res = this->node->Search(dataset, *cfg, bitset);
+#endif
         return res;
     }
 
@@ -190,16 +190,16 @@ class Index {
         RETURN_IF_ERROR(LoadConfig(cfg.get(), json, knowhere::RANGE_SEARCH, "RangeSearch"));
         RETURN_IF_ERROR(cfg->CheckAndAdjustForRangeSearch());
 
-// #ifdef NOT_COMPILE_FOR_SWIG
+#ifdef NOT_COMPILE_FOR_SWIG
         TimeRecorder rc("Range Search");
         auto res = this->node->RangeSearch(dataset, *cfg, bitset);
         auto span = rc.ElapseFromBegin("done");
         span *= 0.001;  // convert to ms
         kw_range_search_latency.Observe(span);
         std::cout << "span: " << span << std::endl;
-// #else
-        // auto res = this->node->RangeSearch(dataset, *cfg, bitset);
-// #endif
+#else
+        auto res = this->node->RangeSearch(dataset, *cfg, bitset);
+#endif
         return res;
     }
 
