@@ -16,10 +16,10 @@
 #include "knowhere/index_node.h"
 #include "knowhere/log.h"
 
-#ifdef NOT_COMPILE_FOR_SWIG
+// #ifdef NOT_COMPILE_FOR_SWIG
 #include "knowhere/comp/time_recorder.h"
 #include "knowhere/prometheus_client.h"
-#endif
+// #endif
 
 namespace knowhere {
 
