@@ -196,9 +196,10 @@ class Index {
         auto span = rc.ElapseFromBegin("done");
         span *= 0.001;  // convert to ms
         kw_range_search_latency.Observe(span);
-        std::cout << "span: " << span << std::endl;
+        LOG_KNOWHERE_WARNING_ << "YXYXYXYXYXYXYXYXYXYYXXYYXY";
 #else
         auto res = this->node->RangeSearch(dataset, *cfg, bitset);
+        LOG_KNOWHERE_WARNING_ << "==YXYXYXYXYXYXYXYXYXYYXXYYXY";
 #endif
         return res;
     }
