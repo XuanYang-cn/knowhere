@@ -198,7 +198,7 @@ class Index {
         kw_range_search_latency.Observe(span);
         std::cout << "span: " << span << std::endl;
 // #else
-        auto res = this->node->RangeSearch(dataset, *cfg, bitset);
+        // auto res = this->node->RangeSearch(dataset, *cfg, bitset);
 // #endif
         return res;
     }
